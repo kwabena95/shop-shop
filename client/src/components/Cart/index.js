@@ -12,7 +12,7 @@ import "./style.css";
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 const Cart = () => {
-    const cart = useSelector(state => state.cart);
+    const cart = useSelector(state => state);
     const dispatch = useDispatch();
     const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
