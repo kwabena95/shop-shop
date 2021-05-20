@@ -6,7 +6,7 @@ import { idbPromise } from "../../utils/helpers";
 import { useDispatch, useSelector } from 'react-redux';
 
 function ProductItem(item) {
-  const cartItem = useSelector(state => state.cart);
+  const cartItems = useSelector(state => state);
   const dispatch = useDispatch();
 
   const {
@@ -17,7 +17,7 @@ function ProductItem(item) {
     quantity
   } = item;
 
-  const { cart } = cartItem
+  const { cart } = cartItems
 
   const addToCart = () => {
     const itemInCart = cart.find((cartItem) => cartItem._id === _id)

@@ -6,14 +6,17 @@ import { QUERY_CATEGORIES } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 
 function CategoryMenu() {
-  const categoriesItem = useSelector(state => state.categories);
-  const dispatch = useDispatch();
 
-  const { categories } = categoriesItem;
+  const dispatch = useDispatch();
+  const state = useSelector(state => state);
+
+  const { categories } = state;
 
   const { loading, data: categoryData } = useQuery(QUERY_CATEGORIES);
 
+
   useEffect(() => {
+    console.log(categoryData)
     if (categoryData) {
       dispatch({
         type: UPDATE_CATEGORIES,
@@ -42,7 +45,7 @@ function CategoryMenu() {
   return (
     <div>
       <h2>Choose a Category:</h2>
-      {categoryData.map(item => (
+      {categories.map(item => (
         <button
           key={item._id}
           onClick={() => {

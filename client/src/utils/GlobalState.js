@@ -23,8 +23,8 @@
 // export { StoreProvider, useStoreContext };
 
 import { createStore } from 'redux';
-import { reducer } from './reducers';
+import reducers from './reducers';
 
-const Store = createStore(reducer);
+const Store = createStore(reducers);
 
 export default Store;

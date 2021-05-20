@@ -8,10 +8,10 @@ import spinner from "../../assets/spinner.gif";
 import { useDispatch, useSelector } from 'react-redux';
 
 function ProductList() {
-  const products = useSelector(state => state.products);
+  const state = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const { currentCategory } = products;
+  const { currentCategory, products } = state;
 
   const { loading, data } = useQuery(QUERY_PRODUCTS);
 
@@ -35,10 +35,12 @@ function ProductList() {
   }, [data, loading, dispatch]);
 
   function filterProducts() {
+    console.log(currentCategory)
     if (!currentCategory) {
+   
       return products;
     }
-
+  
     return products.filter(product => product.category._id === currentCategory);
   }
 

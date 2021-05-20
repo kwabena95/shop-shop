@@ -17,7 +17,7 @@ const initialState = {
     categories: [],
     currentCategory: '',
 };
-export const reducer = (state = initialState, action) => {
+export const reducers = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_PRODUCTS:
             return {
@@ -32,7 +32,9 @@ export const reducer = (state = initialState, action) => {
             };
 
         case UPDATE_CURRENT_CATEGORY:
+            console.log(action, state)
             return {
+
                 ...state,
                 currentCategory: action.currentCategory
             }
@@ -89,3 +91,5 @@ export const reducer = (state = initialState, action) => {
             return state;
     }
 };
+
+export default reducers;
