@@ -12,7 +12,9 @@ import "./style.css";
 const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 const Cart = () => {
-    const cart = useSelector(state => state);
+    const state = useSelector(state => state);
+    // console.log('===========cart===========')
+    // console.log(cart)
     const dispatch = useDispatch();
     const [getCheckout, { data }] = useLazyQuery(QUERY_CHECKOUT);
 
@@ -30,10 +32,10 @@ const Cart = () => {
             dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
         };
 
-        if (!cart.length) {
+        if (!state.cart.length) {
             getCart();
         }
-    }, [cart.length, dispatch]);
+    }, [state.cart.length, dispatch]);
 
     function toggleCart() {
         dispatch({ type: TOGGLE_CART });
@@ -41,7 +43,7 @@ const Cart = () => {
 
     function calculateTotal() {
         let sum = 0;
-        cart.forEach(item => {
+        state.cart.forEach(item => {
             sum += item.price * item.purchaseQuantity;
         });
         return sum.toFixed(2);
@@ -50,7 +52,7 @@ const Cart = () => {
     function submitCheckout() {
         const productIds = [];
 
-        cart.forEach((item) => {
+        state.cart.forEach((item) => {
             for (let i = 0; i < item.purchaseQuantity; i++) {
                 productIds.push(item._id);
             }
@@ -61,7 +63,7 @@ const Cart = () => {
         });
     }
 
-    if (!cart.cartOpen) {
+    if (!state.cartOpen) {
         return (
             <div className="cart-closed" onClick={toggleCart}>
                 <span
@@ -75,9 +77,9 @@ const Cart = () => {
         <div className="cart">
             <div className="close" onClick={toggleCart}>[close]</div>
             <h2>Shopping Cart</h2>
-            {cart.length ? (
+            {state.cart.length ? (
                 <div>
-                    {cart.map(item => (
+                    {state.cart.map(item => (
                         <CartItem key={item._id} item={item} />
                     ))}
 
