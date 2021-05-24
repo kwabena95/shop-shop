@@ -1,23 +1,30 @@
-import React, { createContext, useContext } from "react";
-import { useProductReducer } from './reducers';
+// import React, { createContext, useContext } from "react";
+// import { useProductReducer } from './reducers'
 
+// const StoreContext = createContext();
+// const { Provider } = StoreContext;
 
-const StoreContext = createContext();
-const { Provider } = StoreContext;
+// const StoreProvider = ({ value = [], ...props }) => {
+//     const [state, dispatch] = useProductReducer({
+//         products: [],
+//         cart: [],
+//         cartOpen: false,
+//         categories: [],
+//         currentCategory: '',
+//     });
 
-const StoreProvider = ({ value = [], ...props }) => {
-    const [state, dispatch] = useProductReducer({
-        products: [],
-        categories: [],
-        currentCategory: '',
-    });
-    // use this to confirm it works!
-    console.log(state);
-    return <Provider value={[state, dispatch]} {...props} />;
-};
+//     return <Provider value={[state, dispatch]} {...props} />;
+// };
 
-const useStoreContext = () => {
-    return useContext(StoreContext);
-};
+// const useStoreContext = () => {
+//     return useContext(StoreContext);
+// };
 
-export { StoreProvider, useStoreContext };
+// export { StoreProvider, useStoreContext };
+
+import { createStore } from 'redux';
+import reducers from './reducers';
+
+const Store = createStore(reducers);
+
+export default Store;
