@@ -6,8 +6,9 @@ import { idbPromise } from "../../utils/helpers";
 import { useDispatch, useSelector } from 'react-redux';
 
 function ProductItem(item) {
-  const state = useSelector(state => state);
   const dispatch = useDispatch();
+  const state = useSelector(state => state);
+
 
   const {
     image,
@@ -16,23 +17,24 @@ function ProductItem(item) {
     price,
     quantity
   } = item;
-  console.log(item)
-  console.log('==========cart=================')
   const { cart } = state
-  console.log(cart)
 
   const addToCart = () => {
+
     const itemInCart = cart.find((cartItem) => cartItem._id === _id)
+    console.log(itemInCart)
     if (itemInCart) {
       dispatch({
         type: UPDATE_CART_QUANTITY,
         _id: _id,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
       });
+
       idbPromise('cart', 'put', {
         ...itemInCart,
         purchaseQuantity: parseInt(itemInCart.purchaseQuantity) + 1
       });
+
     } else {
       dispatch({
         type: ADD_TO_CART,
@@ -40,6 +42,7 @@ function ProductItem(item) {
       });
       idbPromise('cart', 'put', { ...item, purchaseQuantity: 1 });
     }
+
   }
 
   return (
